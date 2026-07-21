@@ -270,38 +270,43 @@ Estimated Delivery — 15 Aug 2026
 
 <script>
 function track() {
+  const code = document.getElementById("trackInput").value.trim();
 
-const code=document.getElementById("trackInput").value.trim();
-
-if(code==="MSCU9876543"){
-
-switchPage("page2");
-
-}else{
-
-alert("Tracking number not found");
-
+  if (code === "MSCU9876543") {
+    localStorage.setItem("currentPage", "page2");
+    localStorage.setItem("trackingNumber", code);
+    switchPage("page2");
+  } else {
+    alert("Tracking number not found");
+  }
 }
 
+function back() {
+  localStorage.setItem("currentPage", "page1");
+  localStorage.removeItem("trackingNumber");
+  switchPage("page1");
 }
 
-function back(){
+function switchPage(id) {
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.remove("active-page");
+  });
 
-switchPage("page1");
-
+  document.getElementById(id).classList.add("active-page");
 }
 
-function switchPage(id){
+// Restore page after refresh
+window.onload = function () {
+  const savedPage = localStorage.getItem("currentPage");
+  const savedTracking = localStorage.getItem("trackingNumber");
 
-document.querySelectorAll(".page").forEach(page=>{
-
-page.classList.remove("active-page");
-
-});
-
-document.getElementById(id).classList.add("active-page");
-
-}
+  if (savedPage === "page2" && savedTracking === "MSCU9876543") {
+    document.getElementById("trackInput").value = savedTracking;
+    switchPage("page2");
+  } else {
+    switchPage("page1");
+    }
+};
 </script>
 
 </body>

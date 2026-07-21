@@ -1,0 +1,13 @@
+.back {
+  margin-top: 20px;
+  background: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 20px;
+  cursor: pointer;
+}
+
+.back:hover {
+  background: #5a6268;
+}
